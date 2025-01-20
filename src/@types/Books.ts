@@ -1,3 +1,32 @@
+export type TypeCategory =
+  | "Fantasía"
+  | "Mitologia"
+  | "Épico"
+  | "Aventura"
+  | "Ficção Científica"
+  | "Tecnologia"
+  | "Desenvolvimento Pessoal"
+  | "HQ"
+  | "Batman"
+  | "Mistério"
+  | "Spider-Man"
+  | "Marvel"
+  | "Ficção Científica"
+  | "Robôs"
+  | "Futuro"
+  | "Cyberpunk"
+  | "Espionagem"
+  | "Literatura de Desenvolvimento"
+  | "Gestão"
+  | "Engenharia de Software"
+  | "Robótica"
+  | "Distopia"
+  | "Produtividade"
+  | "Carreira"
+  | "Desenvolvimento"
+  | "Programação"
+  | "Boas Práticas";
+
 export interface IUser {
   _id: string;
   picture: string;
@@ -12,7 +41,7 @@ export interface ICommentary {
 }
 
 export interface IBook {
-  _id: string;
+  _id?: string;
   title: string;
   author: string;
 
@@ -21,6 +50,7 @@ export interface IBook {
   star_rating: number;
 
   published_at: Date;
+  category: TypeCategory[];
 
   user: IUser;
   comments: ICommentary[];
