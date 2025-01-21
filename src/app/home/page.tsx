@@ -7,11 +7,13 @@ import Aside from "./components/Aside";
 import Main from "./components/Main";
 
 import { useBooks } from "./Context/BooksContext";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const { loadingBooks } = useBooks();
+  const { status } = useSession();
 
-  if (loadingBooks) {
+  if (loadingBooks || status === 'loading') {
     return <Loading />
   }
 

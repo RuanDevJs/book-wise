@@ -6,12 +6,18 @@ import Github from "@/assets/Login/Github.svg";
 import { RocketIcon } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const { data } = useSession();
-  console.log({ data })
+  const { push } = useRouter();
+
   async function handleSignIn() {
     await signIn('github', { callbackUrl: '/home' })
+  }
+
+  async function handleClick() {
+    push('/home')
   }
 
   return (
@@ -42,7 +48,7 @@ export default function Login() {
               Entrar com GitHub
             </button>
             <button
-              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150">
+              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150" onClick={handleClick}>
               <RocketIcon size={29} color="#8381D9" />
               Acessar como visitante
             </button>

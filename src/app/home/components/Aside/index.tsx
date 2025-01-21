@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import Recomendation from './Recomendation';
 import AuthenticationModal from '@/components/AuthenticationModal';
 import { useBooks } from '../../Context/BooksContext';
+import { useSession } from 'next-auth/react';
 
 export default function Aside() {
   const { books } = useBooks();
   const [showAuthenticationModal, setShowAuthenticationModal] = useState(false);
 
+  const { status } = useSession();
+
   function handleShowAuthenticationModal() {
-    setShowAuthenticationModal(oldValue => !oldValue)
+    if (status === 'unauthenticated') return setShowAuthenticationModal(oldValue => !oldValue)
   }
 
   return (
@@ -23,7 +26,7 @@ export default function Aside() {
       </div>
       {books && books.map((book) => {
         return (
-          <div key={`recomendation-${book._id}`} onClick={() => setShowAuthenticationModal(true)}>
+          <div key={`recomendation-${book._id}`} onClick={handleShowAuthenticationModal}>
             <Recomendation data={book} />
           </div>
         )
