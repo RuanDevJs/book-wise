@@ -14,7 +14,7 @@ export default function Login() {
           height={BookWise.height}
           quality={80}
           alt=""
-          className="object-cover w-[560px] h-full rounded-md"
+          className="object-cover 2xl:w-[960px] w-[560px] h-full rounded-md"
           draggable={false}
         />
         <div className="w-[400px]">

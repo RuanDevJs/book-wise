@@ -7,7 +7,7 @@ interface IProps {
 export default function Article({ data }: IProps) {
   const stars = Array.from({ length: data.star_rating }, (n, index) => index)
   return (
-    <article className="w-full mt-8 px-7 py-5 rounded-lg bg-[#181C2A]">
+    <article className="w-full mt-8 px-7 py-5 rounded-lg bg-[#181C2A] hover:-translate-y-3 transition ease-in-out duration-1500 hover:brightness-110 cursor-pointer" >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <img src={data.user.picture} alt="" className="w-14 h-14 rounded-full object-cover" />
@@ -17,7 +17,7 @@ export default function Article({ data }: IProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {stars.map(star => <Star color="#8381D9" fill="#8381D9" className="border-none outline-non" />)}
+          {stars.map((_, index) => <Star color="#8381D9" fill="#8381D9" className="border-none outline-non" key={index} />)}
         </div>
       </div>
       <div className="mt-7 flex gap-5">

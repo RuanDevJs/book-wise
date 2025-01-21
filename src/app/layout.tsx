@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+
+import { PrimeReactProvider } from "primereact/api"
+import "primereact/resources/primereact.min.css"
+
 import "./globals.css";
 
 const fontPoppins = Nunito({
@@ -20,11 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fontPoppins.className} antialiased`}
-      >
-        {children}
-      </body>
+      <PrimeReactProvider>
+        <body className={`${fontPoppins.className} antialiased`}>
+          {children}
+        </body>
+      </PrimeReactProvider>
     </html>
   );
 }
