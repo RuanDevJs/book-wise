@@ -12,13 +12,14 @@ async function initDatabase(dbName: string, collection: string) {
   }
 }
 
-export async function findAllBooks() {
+export async function findAllBooks(limit?: number) {
   const database = await initDatabase(process.env.DATABASE!, "books");
 
   if (database) {
-    const booksFromDatabase = await database.find().toArray();
-    console.log(booksFromDatabase);
-    return booksFromDatabase;
+    const booksFromDatabase = database.find();
+    return limit
+      ? await booksFromDatabase.limit(limit).toArray()
+      : await booksFromDatabase.toArray();
   }
 }
 
