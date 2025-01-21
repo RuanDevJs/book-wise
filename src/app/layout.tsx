@@ -5,6 +5,7 @@ import { PrimeReactProvider } from "primereact/api"
 import "primereact/resources/primereact.min.css"
 
 import "./globals.css";
+import Provider from "@/components/Protected";
 
 const fontPoppins = Nunito({
   variable: "--font-poppins",
@@ -23,12 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <PrimeReactProvider>
-        <body className={`${fontPoppins.className} antialiased`}>
-          {children}
-        </body>
-      </PrimeReactProvider>
-    </html>
+    <Provider>
+      <html lang="en">
+        <PrimeReactProvider>
+          <body className={`${fontPoppins.className} antialiased`}>
+            {children}
+          </body>
+        </PrimeReactProvider>
+      </html>
+    </Provider>
+
   );
 }

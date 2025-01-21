@@ -46,6 +46,21 @@
   }
 }
 
+@keyframes LastRead {
+  from {
+    transform: translate3d(0px, -5px, 0);
+    filter: brightness(1.2);
+  }
+  to {
+    transform: translate3d(0px, 0px, 0);
+    filter: brightness(1.5);
+  }
+}
+
 .loading-bg {
   animation: BackgroundAnimation 1.5s alternate infinite;
+}
+
+.last-read {
+  animation: LastRead 1.2s alternate infinite;
 }

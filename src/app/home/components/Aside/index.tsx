@@ -1,13 +1,10 @@
-import { IBook } from '@/@types/Books'
 import React, { useState } from 'react'
 import Recomendation from './Recomendation';
 import AuthenticationModal from '@/components/AuthenticationModal';
+import { useBooks } from '../../Context/BooksContext';
 
-interface IProps {
-  books: IBook[];
-}
-
-export default function Aside({ books }: IProps) {
+export default function Aside() {
+  const { books } = useBooks();
   const [showAuthenticationModal, setShowAuthenticationModal] = useState(false);
 
   function handleShowAuthenticationModal() {

@@ -1,10 +1,19 @@
+'use client'
+
 import BookWise from "@/assets/Login/BookWise.jpg"
 import Github from "@/assets/Login/Github.svg";
 
 import { RocketIcon } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function Login() {
+  const { data } = useSession();
+  console.log({ data })
+  async function handleSignIn() {
+    await signIn('github', { callbackUrl: '/home' })
+  }
+
   return (
     <main className="bg-baseBackground">
       <div className="p-5 w-full h-dvh flex items-center overflow-hidden gap-20">
@@ -27,6 +36,7 @@ export default function Login() {
           <div className="flex flex-col gap-3 mt-3 w-[85%]">
             <button
               className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150"
+              onClick={handleSignIn}
             >
               <Image src={Github} width={29} alt="" />
               Entrar com GitHub
