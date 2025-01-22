@@ -15,7 +15,7 @@ export default function Aside() {
   }
 
   return (
-    <aside className="mt-[105px]">
+    <aside className="mt-[105px] animate-from-down-to-up">
       <div className="mb-7 flex items-center justify-between">
         <p className="text-base font-medium text-zinc-500 ">Livros Populares</p>
         <a href="#"

@@ -37,13 +37,15 @@ const OPTIONS = ["Fantasía",
 
 export default function Profile() {
   const { books } = useBooks();
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [derivedBook, setDerivedBooks] = useState(books);
+
+  if (status !== 'loading' && status === 'unauthenticated') return router.push('/home')
 
   function handleSearchBook() {
     if (inputRef && inputRef.current) {
@@ -88,7 +90,7 @@ export default function Profile() {
         </div>
         {derivedBook.map((book) => <Article data={book} key={book._id} />)}
       </main>
-      <aside className="border-l border-[#181C2A] mt-[45px] px-1 block animate-from-up-to-down">
+      <aside className="border-l border-[#181C2A] mt-[45px] px-1 block animate-from-down-to-up ">
         <div
           className="flex flex-col after:mt-5 items-center text-center after:block after:bg-gradient-to-r after:from-[#7FD1CC] after:to-[#9694F5] after:w-10 after:h-1.5 after:rounded-md"
         >

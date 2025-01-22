@@ -29,7 +29,7 @@ export default function Main() {
   const { books } = useBooks();
   const { status } = useSession();
   return (
-    <main className="grid-content py-10">
+    <main className="grid-content py-10 animate-from-up-to-down">
       <div>
         <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-100">
           <ChartColumnIncreasingIcon /> Início

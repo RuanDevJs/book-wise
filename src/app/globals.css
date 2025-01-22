@@ -71,6 +71,17 @@
   }
 }
 
+@keyframes FromDownToUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
 .loading-bg {
   animation: BackgroundAnimation 1.5s alternate infinite;
 }
@@ -82,4 +93,9 @@
 .animate-from-up-to-down {
   opacity: 0;
   animation: FromUptoDown 0.72s forwards;
+}
+
+.animate-from-down-to-up {
+  opacity: 0;
+  animation: FromDownToUp 1.2s forwards;
 }
