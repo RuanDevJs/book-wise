@@ -60,10 +60,26 @@
   }
 }
 
+@keyframes FromUptoDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
 .loading-bg {
   animation: BackgroundAnimation 1.5s alternate infinite;
 }
 
 .last-read {
   animation: LastRead 1.2s alternate infinite;
+}
+
+.animate-from-up-to-down {
+  opacity: 0;
+  animation: FromUptoDown 0.72s forwards;
 }

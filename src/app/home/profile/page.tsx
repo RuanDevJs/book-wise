@@ -69,7 +69,7 @@ export default function Profile() {
 
   return (
     <div className="py-10 grid grid-cols-[2fr_1fr] gap-10 items-start">
-      <main>
+      <main className="animate-from-up-to-down">
         <div className="flex flex-col gap-3">
           <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-100">
             <User2 /> Perfil
@@ -88,7 +88,7 @@ export default function Profile() {
         </div>
         {derivedBook.map((book) => <Article data={book} key={book._id} />)}
       </main>
-      <aside className="border-l border-[#181C2A] mt-[45px] px-1 block">
+      <aside className="border-l border-[#181C2A] mt-[45px] px-1 block animate-from-up-to-down">
         <div
           className="flex flex-col after:mt-5 items-center text-center after:block after:bg-gradient-to-r after:from-[#7FD1CC] after:to-[#9694F5] after:w-10 after:h-1.5 after:rounded-md"
         >
