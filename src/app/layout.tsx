@@ -5,7 +5,7 @@ import { PrimeReactProvider } from "primereact/api"
 import "primereact/resources/primereact.min.css"
 
 import "./globals.css";
-import Provider from "@/components/Protected";
+import Provider from "@/components/@shared/Protected";
 
 const fontPoppins = Nunito({
   variable: "--font-poppins",

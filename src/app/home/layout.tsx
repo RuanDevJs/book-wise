@@ -1,6 +1,10 @@
 import React from 'react'
-import { BookProvider } from './Context/BooksContext'
+import { BookProvider } from '../../context/BooksContext'
+
 import { Metadata } from 'next';
+import Header from '../../components/pages/home/Header';
+
+import GridLayout from '../../components/pages/home/GridLayout';
 
 export const metadata: Metadata = {
   title: "Bem Vindo ao BookWise",
@@ -10,9 +14,12 @@ export const metadata: Metadata = {
 export default function Layout({ children }: React.PropsWithChildren) {
   return (
     <BookProvider>
-      <div>
-        {children}
-      </div>
+      <GridLayout>
+        <Header />
+        <div id="grid-area-content">
+          {children}
+        </div>
+      </GridLayout>
     </BookProvider>
   )
 }

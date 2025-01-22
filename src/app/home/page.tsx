@@ -1,25 +1,12 @@
 'use client'
 
-import Header from "./components/Header";
-import Loading from "../../components/Loading";
-
-import Aside from "./components/Aside";
-import Main from "./components/Main";
-
-import { useBooks } from "./Context/BooksContext";
-import { useSession } from "next-auth/react";
+import Aside from "../../components/pages/home/Aside";
+import Main from "../../components/pages/home/Main";
 
 export default function Home() {
-  const { loadingBooks } = useBooks();
-  const { status } = useSession();
-
-  if (loadingBooks || status === 'loading') {
-    return <Loading />
-  }
 
   return (
-    <div className='grid-home p-3 bg-[#0E1116] h-full relative'>
-      <Header />
+    <div className="w-full grid grid-cols-[2fr_1fr] gap-10">
       <Main />
       <Aside />
     </div>

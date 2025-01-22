@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Recomendation from './Recomendation';
-import AuthenticationModal from '@/components/AuthenticationModal';
-import { useBooks } from '../../Context/BooksContext';
+import AuthenticationModal from '@/components/@shared/AuthenticationModal';
+import { useBooks } from '../../../../context/BooksContext';
 import { useSession } from 'next-auth/react';
 
 export default function Aside() {
@@ -15,7 +15,7 @@ export default function Aside() {
   }
 
   return (
-    <aside className="grid-aside mt-[105px]">
+    <aside className="mt-[105px]">
       <div className="mb-7 flex items-center justify-between">
         <p className="text-base font-medium text-zinc-500 ">Livros Populares</p>
         <a href="#"

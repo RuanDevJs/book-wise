@@ -2,38 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-.grid-header {
+#grid-area-header {
   grid-area: header;
   background: url("../assets/Home/Background.jpg") no-repeat no-repeat center;
   background-size: cover;
   border-radius: 12px;
 
+  width: 280px;
+  height: 95dvh;
+
   position: fixed;
 
-  width: 22%;
-  height: 98%;
+  margin-left: 10px;
 }
 
-.grid-content {
+#grid-area-content {
   grid-area: content;
 }
 
-.grid-aside {
-  grid-area: aside;
-}
-
-.grid-home {
+#grid-layout-home {
   display: grid;
   grid-template-areas:
-    "header content aside"
-    "header content aside"
-    "header content aside";
+    "header content"
+    "header content"
+    "header content";
 
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 3rem;
+  grid-template-columns: minmax(220px, 300px) 2fr;
+  gap: 2rem;
 
-  align-items: stretch;
+  align-items: start;
   position: relative;
+}
+
+#currentPageHome::before {
+  background: linear-gradient(#7fd1cc, #9694f5);
+  border-radius: 5px;
 }
 
 @keyframes BackgroundAnimation {
