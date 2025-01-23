@@ -1,6 +1,6 @@
 'use client';
 
-import { IBook } from '@/@types/Books'
+import { IBook, TypeCategory } from '@/@types/Books'
 import api from '@/lib/Axios';
 import { AxiosRequestConfig } from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react'
@@ -8,6 +8,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 interface IBooksContext {
   books: IBook[];
   loadingBooks: boolean;
+  booksCategory: TypeCategory[];
 }
 
 const bookContext = createContext({} as IBooksContext);
@@ -15,6 +16,26 @@ const bookContext = createContext({} as IBooksContext);
 export function BookProvider({ children }: React.PropsWithChildren) {
   const [books, setBooks] = useState<IBook[]>([]);
   const [loadingBooks, setLoadingBooks] = useState(true);
+  const booksCategory: TypeCategory[] = [
+    "Tudo",
+    "Fantasía",
+    "Mitologia",
+    "Épico",
+    "Aventura",
+    "Ficção Científica",
+    "Desenvolvimento Pessoal",
+    "HQ",
+    "Batman",
+    "Mistério",
+    "Spider-Man",
+    "Marvel",
+    "Cyberpunk",
+    "Robótica",
+    "Distopia",
+    "Produtividade",
+    "Carreira",
+    "Desenvolvimento",
+    "Boas Práticas"]
 
   async function fecthBooksFromApi(options?: AxiosRequestConfig) {
     try {
@@ -32,7 +53,7 @@ export function BookProvider({ children }: React.PropsWithChildren) {
   }, []);
 
   return (
-    <bookContext.Provider value={{ books, loadingBooks }}>
+    <bookContext.Provider value={{ books, loadingBooks, booksCategory }}>
       {children}
     </bookContext.Provider>
   )
@@ -40,6 +61,6 @@ export function BookProvider({ children }: React.PropsWithChildren) {
 
 
 export function useBooks() {
-  const { books, loadingBooks } = useContext(bookContext);
-  return { books, loadingBooks }
+  const { books, loadingBooks, booksCategory } = useContext(bookContext);
+  return { books, loadingBooks, booksCategory }
 }

@@ -4,36 +4,8 @@ import Article from "@/components/pages/profile/Article";
 import { useBooks } from "@/context/BooksContext";
 import { Bookmark, BookOpen, IdCard, LibraryBig, SearchIcon, User2 } from "lucide-react"
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter, useParams, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-
-const OPTIONS = ["Fantasía",
-  "Mitologia",
-  "Épico",
-  "Aventura",
-  "Ficção Científica",
-  "Tecnologia",
-  "Desenvolvimento Pessoal",
-  "HQ",
-  "Batman",
-  "Mistério",
-  "Spider-Man",
-  "Marvel",
-  "Ficção Científica",
-  "Robôs",
-  "Futuro",
-  "Cyberpunk",
-  "Espionagem",
-  "Literatura de Desenvolvimento",
-  "Gestão",
-  "Engenharia de Software",
-  "Robótica",
-  "Distopia",
-  "Produtividade",
-  "Carreira",
-  "Desenvolvimento",
-  "Programação",
-  "Boas Práticas"]
 
 export default function Profile() {
   const { books } = useBooks();
@@ -45,7 +17,6 @@ export default function Profile() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [derivedBook, setDerivedBooks] = useState(books);
 
-  if (status !== 'loading' && status === 'unauthenticated') return router.push('/home')
 
   function handleSearchBook() {
     if (inputRef && inputRef.current) {
@@ -58,9 +29,10 @@ export default function Profile() {
 
   useEffect(() => {
     const paramBookName = searchParams.get('bookName');
-    const findBookByName = books.filter(book => book.title === paramBookName);
 
     if (paramBookName && paramBookName.length) {
+      const findBookByName = books.filter(book => book.title.includes(paramBookName));
+
       if (findBookByName.length) return setDerivedBooks(findBookByName)
       else return alert('Livro não encontrado')
     } else {
@@ -68,6 +40,8 @@ export default function Profile() {
     }
 
   }, [searchParams, books])
+
+  if (status !== 'loading' && status === 'unauthenticated') return router.push('/home')
 
   return (
     <div className="py-10 grid grid-cols-[2fr_1fr] gap-10 items-start">

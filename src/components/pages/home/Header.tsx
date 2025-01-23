@@ -94,12 +94,12 @@ export default function Header() {
             </Link>
           </li>
           <li className="block mx-auto w-full">
-            <a href="#" className={linkTailwindVariant({ isActive: currentPathName === '/home/explorer' })}>
+            <Link href="/home/explorer" className={linkTailwindVariant({ isActive: currentPathName === '/home/explorer' })}>
               <div className="w-[40px] flex justify-center ">
                 <Binoculars size={25} />
               </div>
               <span className="w-[120px] flex justify-start">Explorar</span>
-            </a>
+            </Link>
           </li>
           <li className="my-2 block mx-auto w-full">
             {isUserAuthenticated && <ProfileLink isActive={currentPathName === '/home/profile'} />}

@@ -28,7 +28,6 @@ export default function Article({ data }: IProps) {
           <p className="font-normal text-zinc-300 text-base mt-2 line-clamp-3">{data.description}</p>
         </div>
       </div>
-
     </article>
   )
 }
