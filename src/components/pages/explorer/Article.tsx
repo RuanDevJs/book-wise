@@ -2,15 +2,17 @@
 
 import { IBook } from "@/@types/Books"
 import { Star } from "lucide-react";
-interface IProps {
+import { ComponentProps } from "react";
+interface IProps extends ComponentProps<'div'> {
   data: IBook;
 }
-export default function Article({ data }: IProps) {
+export default function Article({ data, ...props }: IProps) {
   const stars = Array.from({ length: data.star_rating }, (n, index) => index);
 
   return (
     <div
-      className="w-full mb-7 px-5 py-3 rounded-lg bg-[#181C2A] hover:brightness-110 hover:-translate-y-2 duration-150 transition ease-in-out cursor-pointer"
+      className="w-full mb-3 px-5 py-3 rounded-lg bg-[#181C2A] hover:brightness-110 hover:-translate-y-2 duration-150 transition ease-in-out cursor-pointer"
+      {...props}
     >
       <div className="flex gap-5">
         <img src={data.picture} className="w-20 h-full object-cover rounded-md" alt="" />

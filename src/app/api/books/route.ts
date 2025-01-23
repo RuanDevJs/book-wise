@@ -1,4 +1,7 @@
-import { findAllBooks } from "@/repositories/BookRepositories";
+import {
+  findAllBooks,
+  insertCommentaryInBook,
+} from "@/repositories/BookRepositories";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -28,4 +31,14 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error)
       return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+export async function POST() {
+  await insertCommentaryInBook("678ec1cbe934e65b510ec930", {
+    date: new Date(),
+    picture: "https://avatars.githubusercontent.com/u/82915279?v=4",
+    star_rating: 4,
+    username: "Ruan Vitor",
+  });
+  return NextResponse.json({ message: "Deu bom" }, { status: 201 });
 }
