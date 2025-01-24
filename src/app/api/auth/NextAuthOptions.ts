@@ -24,7 +24,28 @@ export const authenticationOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account }) {
+    // async jwt({ token, account, profile }){
+    //   if(profile && account){
+    //     token = profile as GithubProfile;
+    //   }
+
+    //   return token as GithubProfile;
+    // },
+
+    // async session({ session, token }){
+    //   let newSession;
+    //   const sessionToken = token as GithubProfile;
+
+    //   if(token && session.user){
+    //     newSession = {
+    //       ...session,
+    //       userId: sessionToken.id
+    //     }
+    //   }
+
+    //   return session;
+    // },
+    async signIn() {
       return true;
     },
   },

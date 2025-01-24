@@ -41,14 +41,14 @@ export default function Login() {
           </div>
           <div className="flex flex-col gap-3 mt-3 w-[85%]">
             <button
-              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150"
+              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150 animate-from-up-to-down"
               onClick={handleSignIn}
             >
               <Image src={Github} width={29} alt="" />
               Entrar com GitHub
             </button>
             <button
-              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150" onClick={handleClick}>
+              className="p-4 bg-[#252D4A] rounded-md flex items-center gap-3.5 font-bold text-lg text-white hover:brightness-125 transition ease-in-out duration-150 animate-from-down-to-up" onClick={handleClick}>
               <RocketIcon size={29} color="#8381D9" />
               Acessar como visitante
             </button>

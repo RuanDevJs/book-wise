@@ -1,3 +1,4 @@
+import { ICommentary } from "@/@types/Books";
 import {
   findAllBooks,
   insertCommentaryInBook,
@@ -33,12 +34,34 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST() {
-  await insertCommentaryInBook("678ec1cbe934e65b510ec930", {
-    date: new Date(),
-    picture: "https://avatars.githubusercontent.com/u/82915279?v=4",
-    star_rating: 4,
-    username: "Ruan Vitor",
-  });
-  return NextResponse.json({ message: "Deu bom" }, { status: 201 });
+export async function POST(request: NextRequest) {
+  try {
+    const payloadData = (await request.json()) as ICommentary;
+    const url = new URL(request.url);
+    const searchParamSelectedBook = url.searchParams.get("selected_book");
+
+    if (!payloadData || !payloadData.email) {
+      return NextResponse.json(
+        { error: "Error on POST /books - Payload is not correct!" },
+        { status: 400 }
+      );
+    }
+
+    if (!searchParamSelectedBook) {
+      return NextResponse.json(
+        { error: "Error on POST /books - missing query param selected_book" },
+        { status: 400 }
+      );
+    }
+    const updatedBook = await insertCommentaryInBook(
+      searchParamSelectedBook,
+      payloadData
+    );
+
+    if (updatedBook && updatedBook._id) {
+      return NextResponse.json({ book: updatedBook }, { status: 201 });
+    }
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
 }

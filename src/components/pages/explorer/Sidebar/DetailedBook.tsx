@@ -1,17 +1,17 @@
 import { IBook } from "@/@types/Books"
-import { Bookmark, BookOpen, CheckIcon, Star, X } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Bookmark, BookOpen, Star } from "lucide-react";
+
+import Form from "./Form";
 
 interface IProps {
   book: IBook;
 }
 
 export default function DetailedBook({ book }: IProps) {
-  const { data } = useSession();
   const stars = Array.from({ length: book.star_rating }, (n, index) => index);
 
   return (
-    <section className="px-5">
+    <section className="px-5 animate-from-up-to-down">
       <div className="bg-[#181C2A] p-5 mt-5 rounded-lg">
         <div className="flex items-start h-[280px] gap-8 overflow-hidden">
           <img src={book.picture} alt="" className="w-52 h-full object-cover rounded-lg" />
@@ -63,24 +63,7 @@ export default function DetailedBook({ book }: IProps) {
           </ul>
         </div>
       </div>
-      <div className="mt-5">
-        <p className="text-zinc-500 text-sm pb-3">Avaliações</p>
-        <div className="bg-[#181C2A] p-3 rounded-md">
-          <div className="flex items-center gap-2 mb-3">
-            <img src={data?.user?.image} alt="" className="w-10 h-10 rounded-full" />
-            <h3 className="font-medium text-lg text-zinc-100">{data?.user?.name}</h3>
-          </div>
-          <textarea className="w-full bg-[#0E1116] p-3 font-normal text-zinc-300 text-base h-[200px] max-h-[200px] outline-none" maxLength={320} />
-          <div className="flex justify-end gap-2">
-            <button className="bg-[#252D4A] p-1 rounded hover:brightness-125 transition ease-in-out duration-150">
-              <X size={25} color="#8381D9" />
-            </button>
-            <button className="bg-[#252D4A] p-1 rounded hover:brightness-125 transition ease-in-out duration-150">
-              <CheckIcon size={25} color="#50B2C0" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <Form book={book} />
     </section>
   )
 }

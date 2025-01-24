@@ -1,6 +1,6 @@
 'use client';
 
-import { IBook, TypeCategory } from '@/@types/Books'
+import { IBook, ICommentary, TypeCategory } from '@/@types/Books'
 import api from '@/lib/Axios';
 import { AxiosRequestConfig } from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ interface IBooksContext {
   books: IBook[];
   loadingBooks: boolean;
   booksCategory: TypeCategory[];
+  fetchCommentsByBookId: (id: string) => Promise<ICommentary[]>
 }
 
 const bookContext = createContext({} as IBooksContext);
@@ -16,6 +17,7 @@ const bookContext = createContext({} as IBooksContext);
 export function BookProvider({ children }: React.PropsWithChildren) {
   const [books, setBooks] = useState<IBook[]>([]);
   const [loadingBooks, setLoadingBooks] = useState(true);
+
   const booksCategory: TypeCategory[] = [
     "Tudo",
     "Fantasía",
@@ -48,12 +50,19 @@ export function BookProvider({ children }: React.PropsWithChildren) {
     }
   }
 
+  async function fetchCommentsByBookId(bookId: string) {
+    const data = (await api.get(`/books/${bookId}`)).data as IBook;
+    return data && data.comments ? data.comments : []
+  }
+
   useEffect(() => {
     fecthBooksFromApi();
+
+    return () => { fecthBooksFromApi() }
   }, []);
 
   return (
-    <bookContext.Provider value={{ books, loadingBooks, booksCategory }}>
+    <bookContext.Provider value={{ books, loadingBooks, booksCategory, fetchCommentsByBookId }}>
       {children}
     </bookContext.Provider>
   )
@@ -61,6 +70,6 @@ export function BookProvider({ children }: React.PropsWithChildren) {
 
 
 export function useBooks() {
-  const { books, loadingBooks, booksCategory } = useContext(bookContext);
-  return { books, loadingBooks, booksCategory }
+  const { books, loadingBooks, booksCategory, fetchCommentsByBookId } = useContext(bookContext);
+  return { books, loadingBooks, booksCategory, fetchCommentsByBookId }
 }

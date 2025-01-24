@@ -2,6 +2,9 @@ import { IBook } from '@/@types/Books'
 import { Star } from 'lucide-react';
 import React from 'react'
 
+import { formatDistance } from "date-fns"
+import { pt } from "date-fns/locale/pt"
+
 interface IProps {
   data: IBook;
 }
@@ -9,10 +12,12 @@ interface IProps {
 export default function Article({ data }: IProps) {
   const stars = Array.from({ length: data.star_rating }, (n, index) => index)
 
+  const distance = formatDistance(data.published_at, new Date(), { locale: pt, addSuffix: true });
+  const formatedDate = distance.replace('aproximadamente', '') + ' atrás';
 
   return (
     <article className='py-1 mt-5 hover:-translate-y-3 transition ease-in-out duration-150 hover:brightness-125 cursor-pointer'>
-      <p className='font-semibold text-zinc-500 text-sm mb-3'>Há 2 dias</p>
+      <p className='font-semibold text-zinc-500 text-sm mb-3 capitalize'>{formatedDate}</p>
       <div className='bg-[#181C2A] p-5 rounded-md'>
         <div className='flex items-stretch gap-5 h-full'>
           <img

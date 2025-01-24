@@ -62,7 +62,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-        {derivedBook.map((book) => <Article data={book} key={book._id} />)}
+        {derivedBook.map((book) => <Article data={book} key={`${book._id}`} />)}
       </main>
       <aside className="border-l border-[#181C2A] mt-[45px] px-1 block animate-from-down-to-up ">
         <div

@@ -9,11 +9,14 @@ import { IBook, TypeCategory } from "@/@types/Books";
 import { useEffect, useState } from "react";
 import Category from "@/components/pages/explorer/Category";
 import Article from "@/components/pages/explorer/Article";
+
 import { SearchIcon, X } from "lucide-react";
 import { Sidebar } from "primereact/sidebar";
+
 import DetailedBook from "@/components/pages/explorer/Sidebar/DetailedBook";
-
-
+import { useRouter, useSearchParams } from "next/navigation";
+import api from "@/lib/Axios";
+import Loading from "@/components/@shared/Loading";
 
 export default function Explorer() {
   const { books, booksCategory } = useBooks();
@@ -22,11 +25,14 @@ export default function Explorer() {
   const [derivedBooks, setDerivedBooks] = useState(books);
   const [selectedBook, setSelectedBook] = useState<IBook>({} as IBook);
 
-  const [sidebarVisible, setSidebarVisivle] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const searchParamSelectedBook = searchParams.get('selected_book');
+  const [loadingSelectedBook, setLoadingSelectedBook] = useState(true);
 
   function handleSidebarVisible(clickedBook: IBook) {
-    setSelectedBook(clickedBook);
-    setSidebarVisivle(oldValue => !oldValue)
+    return router.push(`/home/explorer?selected_book=${clickedBook._id}&sidebar_visible=${true}`)
   }
 
   useEffect(() => {
@@ -35,6 +41,26 @@ export default function Explorer() {
     const filteredBooks = books.filter(book => book.category.includes(activeCategory));
     setDerivedBooks(filteredBooks);
   }, [books, activeCategory]);
+
+  useEffect(() => {
+    async function handlefetchBookById(bookId: string) {
+      setLoadingSelectedBook(true);
+      try {
+        const response = await (await api.get(`/books/${bookId}`)).data.book as IBook;
+        setSelectedBook(response);
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message)
+      } finally {
+        setLoadingSelectedBook(false);
+      }
+    }
+
+    if (searchParamSelectedBook) {
+      handlefetchBookById(searchParamSelectedBook)
+    }
+
+
+  }, [books, searchParamSelectedBook])
 
   return (
     <main className="py-10">
@@ -68,21 +94,22 @@ export default function Explorer() {
         {derivedBooks.map(book =>
           <Article
             data={book}
-            key={book._id}
+            key={`explorer-book=${book._id}`}
             onClick={() => handleSidebarVisible(book)}
           />
         )}
       </div>
 
       <Sidebar
-        visible={sidebarVisible}
-        onHide={() => setSidebarVisivle(false)}
+        visible={!!searchParamSelectedBook}
+        onHide={() => router.push('/home/explorer')}
         position="right"
         className="bg-[#0E1116] p-5 min-w-[600px] max-w-[960px]"
         maskClassName='bg-[rgba(0,0,0,0.72)]'
         closeIcon={() => <X size={25} className="m-2 border-2 rounded-full hover:text-red-500 text-white hover:border-red-500 transition ease-in-out duration" />}
       >
-        <DetailedBook book={selectedBook} />
+        {loadingSelectedBook && <Loading />}
+        {!loadingSelectedBook && <DetailedBook book={selectedBook} />}
       </Sidebar>
     </main>
   )

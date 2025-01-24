@@ -23,13 +23,12 @@ export async function findAllBooks() {
 }
 
 export async function findBookById(bookId: string) {
-  const database = await initDatabase(
-    process.env.DATABASE!,
-    process.env.BOOKS_COLLECTION!
-  );
+  const database = await initDatabase(process.env.DATABASE!, "books");
 
   if (database) {
-    const bookFromDatabase = await database.findOne({ _id: bookId });
+    const bookFromDatabase = await database.findOne({
+      _id: new ObjectId(bookId),
+    });
     return bookFromDatabase;
   }
 }
@@ -40,14 +39,22 @@ export async function insertCommentaryInBook(
 ) {
   const database = await initDatabase(process.env.DATABASE!, "books");
 
-  if (database) {
-    const booksFromDatabase = await database.findOneAndUpdate(
-      {
-        _id: new ObjectId("678ec1cbe934e65b510ec930"),
-      },
-      { $push: { comments: commentary } }
+  if (!database) {
+    throw new Error(
+      "Could not insert comment in Book - Database is not connected!"
     );
-    console.log({ booksFromDatabase });
-    return booksFromDatabase;
+  }
+
+  try {
+    const updatedBookFromDatabase = await database.findOneAndUpdate(
+      { _id: new ObjectId(bookId) },
+      { $push: { comments: commentary } },
+      { returnDocument: "after" }
+    );
+
+    return updatedBookFromDatabase;
+  } catch (error) {
+    if (error instanceof Error)
+      throw new Error(error.message, { cause: error.cause });
   }
 }

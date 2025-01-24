@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 export type TypeCategory =
   | "Tudo"
   | "Fantasía"
@@ -26,14 +28,16 @@ export interface IUser {
 }
 
 export interface ICommentary {
+  email: string;
   picture: string;
   username: string;
   star_rating: number;
   date: Date;
+  comment: string;
 }
 
 export interface IBook {
-  _id?: string;
+  _id: string | ObjectId;
   title: string;
   author: string;
 
